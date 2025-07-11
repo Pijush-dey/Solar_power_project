@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<!-- This site was created in Webflow. https://webflow.com -->
+<!-- Last Published: Sat Nov 09 2024 01:19:13 GMT+0000 (Coordinated Universal Time) -->
+<html data-wf-domain="biriyanis-top-notch-site.webflow.io" data-wf-page="66fc76f4a95f4c3385f3077c" data-wf-site="66fc76f4a95f4c3385f30765" data-wf-status="1">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Ayush Solar Solutions</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="ASS" name="Udvaboni Pvt. Ltd." />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />    
+    <link href="https://cdn.prod.website-files.com/66e724f388c4c2fb1eeee717/66e72e652414abaeaf2e4843_66dec9555a122ce76a058e06_Vectors-Wrapper.svg" rel="shortcut icon" type="image/x-icon" />
+    <link href="https://cdn.prod.website-files.com/img/webclip.png" rel="apple-touch-icon" /> 
+    {% load static %}
+    <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+  
+  
+  <style>
+    /* Reset and basic styling */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Background image styling */
+    body {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("{% static 'images/Frame 8.png' %}"); /* Update the path to the image */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+  }
+
+
+
+    /* Heading with Company logo */
+    .div-block-4 {
+      display: flex;
+      width: 85%;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      grid-column-gap: 60px;
+      grid-row-gap: 60px;
+      text-align: center;
+    }
+    .div-block-7 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-self: auto;
+      grid-column-gap: 15px;
+      grid-row-gap: 15px;
+      text-align: center;
+      padding-right: 35px;
+    }
+    .div-block-2 {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-self: center;
+      grid-column-gap: 5px;
+      grid-row-gap: 5px;
+      text-align: right;
+    }
+    .text-block-2 {
+      color: hsla(0, 0.00%, 100.00%, 1.00);
+      font-size: 40px;
+      line-height: 50px;
+      font-weight: 700;
+    }
+    .text-block-3 {
+      color: hsla(0, 0.00%, 100.00%, 1.00);
+      font-size: 16px;
+    }
+
+    /* Company Moto */
+    .div-block-3 {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      grid-column-gap: 20px;
+      grid-row-gap: 20px;
+      text-align: center;
+    }
+    .text-block-4 {
+      font-family: tahoma;
+      color: hsla(0, 0.00%, 100.00%, 1.00);
+      font-size: 40px;
+      line-height: 42px;
+    }
+    .text-block-5 {
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: 0%;
+      color: hsla(0, 0.00%, 100.00%, 1.00);
+      font-size: 25px;
+      line-height: 35px;
+    }
+
+    /* LOGIN Buttons for both ADMIN & USER */
+    .div-block-6 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-column-gap: 200px;
+      grid-row-gap: 200px;
+    }
+    .button-1 {
+      padding-top: 15px;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      padding-left: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: hsla(37, 100.00%, 50.00%, 1.00);
+      box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+      font-size: 17px;
+      font-weight: 700;
+      color: white;
+      cursor:pointer;
+    }
+    .button-1:active {
+      background-color: #bb7300;
+    }
+    .button-2 {
+      padding-top: 15px;
+      padding-right: 25px;
+      padding-bottom: 15px;
+      padding-left: 25px;
+      border: none;
+      border-radius: 10px;
+      background-color: hsla(118, 100.00%, 42.00%, 1.00);
+      box-shadow: 4px 4px 1px 0 rgba(0, 0, 0, 0.2);
+      font-size: 17px;
+      font-weight: 700;
+      color: white;
+      cursor:pointer;
+    }
+    .button-2:active {
+      background-color: hsla(118, 100.00%, 18.00%, 1.00);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* LOGIN-page overlay background */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Transparent grey background */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s;
+      }
+      
+      .popup-form {
+          display: flex;
+          width: 20%;
+          padding: 30px;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          border-radius: 10px;
+          background-color: #39b54a;
+          box-shadow: 20px 20px 20px 0 rgba(0, 0, 0, 0.2);
+          position: relative;
+      }
+      
+      /* Header container for title and close button */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    
+      /* Image as close button */
+      .close-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        background: white url('https://img.icons8.com/ios-glyphs/30/000000/multiply.png') no-repeat center;
+        box-shadow: 4px 4px 1px 0 rgba(0, 0, 0, 0.2);
+        background-size: 20px 20px;
+        cursor: pointer;
+      }
+      .close-btn:active {
+        background-color: hsla(0, 0.00%, 52.00%, 1.00);
+      }
+      
+      /* Form title */
+      .popup-form h2 {
+        color: white;
+        font-size: 23px;
+        margin: 0;
+      }
+  
+      /* Horizontal line */
+      .popup-form .divider {
+        height: 1px;
+        background-color: white;
+        margin: 10px 0;
+      }
+      
+      /* Form labels */
+      .popup-form label {
+        display: block;
+        color: white;
+        font-weight: bold;
+        margin-top: 10px;
+        text-align: left;
+      }
+      
+      /* Input fields */
+      .popup-form input[type="email"],
+      .popup-form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+      
+      /* Login button */
+      .popup-form .login-btn {
+        margin-top: 20px;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 4px 4px 1px 0 rgba(0,0,0,0.2);        
+      }
+      .login-btn:active {
+        background-color: hsla(0, 0.00%, 52.00%, 1.00);
+      }
+
+      /* Show overlay and form when active */
+      .overlay.active {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap:10px;
+      }
+
+      .popup-message {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        font-weight: bold;
+        text-align: center;
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
+
+      #error-message {
+        background-color: #ff6b6b;
+        color: white;
+      }
+
+      #inactivity-message {
+        background-color: #ffe066;
+        color: #333;
+        border: 2px solid #ffb700;
+      }
+</style>
+</head>
+<body class="body">
+        <!-- Overlay and Popup USER LOGIN Form -->
+        <div class="overlay" id="overlay">
+            <div class="popup-form">
+            <div class="header">
+                <h2>LOGIN PAGE</h2>
+                <div class="close-btn" onclick="hidePopup()"></div> <!-- Square close button on the same line as the title -->
+            </div>
+            <div class="divider"></div> <!-- White horizontal line -->
+            <form method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+                <div>
+                  <label for="email">E-mail ID:</label>
+                  <input type="email" id="email" name="email" placeholder="ex: example@gmail.com" required>
+                </div>
+                
+                <div>
+                  <label for="password">Password:</label>
+                  <input type="password" id="password" name="password" placeholder="enter your password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">LOGIN</button>
+            </form>
+            </div>
+        </div>
+        
+        <!-- Error message for wrong credentials -->
+        {% if error_message %}
+            <div id="error-message" class="popup-message">
+                {{ error_message }}
+            </div>
+        {% elif inactive_redirect %}
+            <div id="inactivity-message" class="popup-message">
+                ⚠️ You were logged out due to inactivity. Please log in again to continue.
+            </div>
+        {% endif %}
+
+        {% if error_message or inactive_redirect %}
+        <script>
+            // Auto-hide the message after 5 seconds
+            setTimeout(function() {
+                const errorMsg = document.getElementById('error-message');
+                const inactivityMsg = document.getElementById('inactivity-message');
+                const message = errorMsg || inactivityMsg;
+                if (message) {
+                    message.style.opacity = '0';
+                    message.style.transition = 'opacity 0.5s';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 500);
+                }
+            }, 5000);
+        </script>
+        {% endif %}
+        
+        <div class="div-block-4">
+            <div class="div-block-7">
+                <img src="https://cdn.prod.website-files.com/6703ecaf1a4ee3994143fc5f/6705cac15aee7ca914dc0e40_66dec9555a122ce76a058e06_Vectors-Wrapper.svg" alt="" class="image" />
+                <div class="div-block-2">
+                    <div class="text-block-2">AYUSH  SOLAR  SOLUTIONS</div>
+                    <div class="text-block-3">~YOUR OWN POWER</div>
+                </div>
+            </div>
+            <div class="div-block-3">
+                <div class="text-block-4">Powering the Future with the Sun</div>
+                <div class="text-block-5">"Invest in your future with solar energy. Enjoy the financial and environmental benefits of a clean energy source."</div>
+            </div>
+            <div class="div-block-6">
+                <button id="open_admin_form" class="button-1" onclick="openAdminPanel()">ADMIN  LOGIN</button>
+                <button id="open_user_form" class="button-2" onclick="showPopup()">USER  LOGIN</button>
+            </div>
+        </div>
+        <script>
+            // Force refresh if browser back is used (to avoid stale CSRF tokens)
+            if (window.performance && window.performance.navigation.type === 2) {
+                window.location.reload();
+            }
+            // Function to show the popup
+            function showPopup() {
+              document.getElementById('overlay').classList.add('active');
+            }
+        
+            // Function to hide the popup
+            function hidePopup() {
+              document.getElementById('overlay').classList.remove('active');
+            }
+
+            // Function to open the admin panel
+            function openAdminPanel() {
+                window.location.href = '/admin/';
+            }
+        </script>
+</body>
+</html>

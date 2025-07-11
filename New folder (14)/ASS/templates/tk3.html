@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabs Example</title>
+<link href="https://cdn.prod.website-files.com/66e724f388c4c2fb1eeee717/css/pijushs-stunning-site-a54f79.webflow.45253386a.css" rel="stylesheet" type="text/css" />  
+<link href="https://cdn.prod.website-files.com/66e724f388c4c2fb1eeee717/66e72e652414abaeaf2e4843_66dec9555a122ce76a058e06_Vectors-Wrapper.svg" rel="shortcut icon" type="image/x-icon" />
+{% load static %}
+<style>
+    /* Global styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .tabs-container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .tab-content1{
+        display: none;
+    }
+
+    .tab-content1.active {
+        display: block;
+    }
+
+    .tab-content2{
+        display: none;
+    }
+
+    .tab-content2.active {
+        display: block;
+    }
+
+    .stats-container {
+        width: 100%;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        background-color: white;
+        border-radius: 20px;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .stats-title {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 10px;
+    }
+
+    .tab-btn1 {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        background-color: #F8F8B8;
+        color: #555;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .tab-btn1:hover {
+        background-color: #FFE5B4;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .tab-btn1.active {
+        background-color: #FFB800;
+        color: #FFF;
+        font-weight: bold;        
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .tab-btn2 {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        background-color: #F8F8B8;
+        color: #555;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .tab-btn2:hover {
+        background-color: #FFE5B4;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .content-container {
+        margin: 40px 20px;
+        padding: 20px 30px;
+        background-color: #f6f6f6;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        font-size: 16px;
+        color: #555;
+        overflow-x: hidden;  /* Ensure horizontal scroll is hidden */
+    }
+
+    .chart {
+        margin-bottom: 20px;
+        width: 100%;
+        height: 300px;
+        max-width: 100%;  /* Prevent charts from exceeding the container width */
+    }
+
+    .charts{
+        margin-top:0px;
+    }
+
+    .tabs-3 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tabs-menu-3 {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .w-tab-pane {
+        display: none;
+    }
+
+    .w-tab-pane.w--tab-active {
+        display: block;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    table {
+        background-color: #f6f6f6;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    tr {
+        border-bottom: 1px solid #ccc;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    th {
+        background-color:	#d6d6d6;
+        padding: 20px 10px;
+        font-size: 18px;
+    }
+
+    th.sortable:hover {
+        background-color:#a9a9a9;
+    }
+
+    th .arrow {
+        margin-left: 5px;
+        font-size: 14px;
+    }
+
+    .tabs-content {
+        margin: 20px;
+        padding: 0px 20px 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        background-color: white;
+        color: #555;
+        overflow-x: hidden;
+    }
+
+    .description{
+        text-align:left;
+        width: 30%;
+        padding-left: 20px;
+    }
+
+    .status-select {
+        width: 70%;
+        padding: 6px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        user-select: none;
+    }
+
+    .pagination-container {
+        display: flex;
+        align-items: center;
+        background-color: #f6f6f6;
+        margin-bottom: 5px;
+        padding: 10px;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .pagination button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        margin: 0 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .pagination button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+    .pagination button:hover:not(:disabled) {
+        background-color: #0056b3;
+    }
+
+    .pagination-info {
+        margin: 0 15px;
+        font-size: 14px;
+        color: #666;
+        text-align:center;
+    }
+
+    .rows-per-page {
+        padding: 6px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .page-input {
+        width: 50px;
+        margin: 0 10px;
+        padding: 6px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .filter-container {
+        margin: 20px 0px;
+        padding: 10px;
+        background-color: #f6f6f6;
+        display:flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .filter-container input {
+        width:20%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Style for the delete confirmation modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .modal button {
+        margin: 10px;
+    }
+
+    .image-4 {
+      border-radius: 50px;
+      cursor: pointer;
+      border: 0px;
+    }
+
+    .image-4:active{
+      border-radius: 50px;
+    }
+
+    .image-3 {
+        cursor: pointer;
+        border: 0px;
+    }
+
+    .image-3:active {
+        background-color: hsla(0, 0.00%, 57.92%, 1.00);; 
+    }
+
+    #deleteConfirm, #deleteCancel{
+        padding: 7px 13px;
+        border-radius: 5px;
+        color: white;
+        background-color: red;
+        font-size: 16px;
+        font-weight: 600;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    #deleteConfirm:active {
+        background-color: #520202;
+    }
+
+    #deleteCancel {
+        background-color: #ccc;
+        color: black;
+    }
+
+    #deleteCancel:active {
+        background-color: #363535;
+    } 
+
+    .status-in-progress { background-color: #ffe082 !important; color: #333 !important; }
+    .status-resolved    { background-color: #a5d6a7 !important; color: #333 !important; }
+    .status-closed      { background-color: #ef9a9a !important; color: #333 !important; }
+    .status-on-hold     { background-color: #b3e5fc !important; color: #333 !important; }
+    .status-pending     { background-color: #fff59d !important; color: #333 !important; }
+
+    /* Color coding for status options */
+    .status-select option {
+        padding: 5px 10px;
+    }
+    .status-select option[value="In Progress"] {
+        background-color: #FFF3CD;
+        color: #856404;
+    }
+    .status-select option[value="Resolved"] {
+        background-color: #D4EDDA;
+        color: #155724;
+    }
+    .status-select option[value="Closed"] {
+        background-color: #D6D8D9;
+        color: #383D41;
+    }
+    .status-select option[value="On Hold"] {
+        background-color: #F8D7DA;
+        color: #721C24;
+    }
+    .status-select option[value="Pending"] {
+        background-color: #CCE5FF;
+        color: #004085;
+    }
+    /* Dropdown styling */
+    .status-select {
+        padding: 5px 10px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        min-width: 120px;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        background-size: 16px;
+    }
+    /* Dynamic background for current status */
+    {% comment %} .status-select[value="In Progress"] {
+        background-color: #FFF3CD;
+    }
+    .status-select[value="Resolved"] {
+        background-color: #D4EDDA;
+    }
+    .status-select[value="Closed"] {
+        background-color: #D6D8D9;
+    }
+    .status-select[value="On Hold"] {
+        background-color: #F8D7DA;
+    }
+    .status-select[value="Pending"] {
+        background-color: #CCE5FF;
+    } {% endcomment %}
+</style>  
+
+<style>
+            
+    .div-block-4 {
+      position: relative;
+      flex: 0 auto;
+      justify-content: center;
+      align-items: center;
+      width: 80px;
+      display: flex;
+    }
+
+    .image-2 {
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: white; /* White background */
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 250px;
+        z-index: 10;
+    }
+    .dropdown-menu.active {
+        display: block;
+    }
+    .dropdown-menu div, .dropdown-menu a {
+        padding: 12px 16px;
+        text-decoration: none;
+        color: #374151;
+        display: block;
+        font-size: 15px;
+    }
+    .dropdown-menu div {
+        font-weight: 600;
+    }
+    .dropdown-menu .email {
+        font-weight: 400;
+        font-size: 13px;
+        color: #6b7280;
+        margin-top: 4px;
+    }
+    .dropdown-menu a:hover {
+        background-color: #f3f4f6;
+    }
+    .dropdown-menu .sign-out {
+        border-top: 1px solid #e5e7eb;
+        font-size: 15px;
+    }
+    #dropdownUserAvatarButton img:active {
+      box-shadow: 0 0 0 6px #d1d5db;
+    }
+    
+</style>
+</head>
+<body class="body">
+    <section class="header">
+        <div class="div-block">
+            <div><img src="https://cdn.prod.website-files.com/66e724f388c4c2fb1eeee717/66e72e652414abaeaf2e4843_66dec9555a122ce76a058e06_Vectors-Wrapper.svg" loading="lazy" width="75.5" alt="" class="image" /></div>
+            <div class="div-block-2">
+                <div class="text-block">AYUSH  SOLAR  SOLUTIONS</div>
+            </div>
+        </div>
+        <div class="div-block-4">
+            <!-- Button -->
+            <div id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" type="button">
+                <img alt="person_image" src="{% static 'images/person_image.png' %}" loading="lazy" class="image-2" />
+            </div>
+            <!-- Dropdown menu -->
+            <div id="dropdownAvatar" class="dropdown-menu">
+                <div style="word-wrap: break-word;">
+                    {{ user_name }}
+                    <div style="word-wrap: break-word;" class="email">{{ user_email }}</div>
+                </div>
+                <!--
+                <a href="#">Dashboard</a>
+                <a href="#">Settings</a>{}
+                <a href="#">Earnings</a>
+                -->
+                <div class="sign-out">
+                    <a href="{% url 'logout' %}" style="color: red;">Sign out <img src="{% static 'images/icons8-logout-16.png' %}"></a>
+                </div>
+            </div>
+          </div>
+    </section>
+    <section class="new-project"><a href="{% url 'project_create' %}" class="button w-button">+ New Project</a></section>
+    <section class="charts">
+        <div class="div-block-5 chart-1-width">
+          <h2>Sales Statistics</h2>
+            <div class="stats-container">
+                  <div class="tabs">
+                      <button class="tab-btn1 active" data-tab="sales_analysis">SALES  ANALYSIS</button>
+                      <button class="tab-btn1" data-tab="comparative_analysis">COMPARATIVE  ANALAYSIS</button>
+                  </div>
+
+                    <div class="content-container tab-content1 active" id="sales_analysis">
+                        <!-- Initial content for ALL tab -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 50px 0px 10px; background-color: transparent;"> 
+                            <h2 id="heading-yearly" style="margin: 0; font-size: 1.55rem; color: #333;">Yearly Sales for {{ initial_product }}</h2>
+                            <form method="get" style="display: flex; align-items: center; margin: 0;">
+                                <label for="product-select" style="margin-right: 10px; font-size: 1rem; color: #555;">Select Product:</label>
+                                <select id="product-select" 
+                                        style="padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; background-color: #fff; color: #333; cursor: pointer;"
+                                        onchange= " const product = this.value;
+                                                    document.getElementById('heading-yearly').textContent = 'Yearly Sales for ' + product;
+                                                    document.getElementById('heading-monthly').textContent = 'Monthly Sales for ' + product + ' in ' + document.getElementById('year-select').value; 
+                                        ">
+                                    {% for product in products %}
+                                    <option value="{{ product }}" {% if product == initial_product %}selected{% endif %}>
+                                        {{ product }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+                        
+                        <div id="chart1" class="chart"></div>
+                        
+                        <!-- Monthly Sales Chart -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 50px 0px 10px; background-color: transparent;"> 
+                            <h2 id="heading-monthly" style="margin: 0; font-size: 1.55rem; color: #333;">Monthly Sales for {{ initial_product }} in {{ initial_year }}</h2>
+                            <form method="get"  style="display: flex; align-items: center; margin: 0;">
+                                <label for="year" style="margin-right: 10px; font-size: 1rem; color: #555;">Select Year:</label>
+                                <select name="year" id="year-select" 
+                                        style="padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; background-color: #fff; color: #333; cursor: pointer;"
+                                        onchange=  "const year = this.value;
+                                                    const product = document.getElementById('product-select').value;
+                                                    document.getElementById('heading-monthly').textContent = 'Monthly Sales for ' + product + ' in ' + year;
+                                        ">
+                                    {% for year in years %}
+                                        <option value="{{ year }}" {% if year == initial_year %}selected{% endif %}>
+                                            {{ year }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+
+                        <div id="chart2" class="chart"></div>
+                    </div>
+                    <div class="content-container tab-content1" id="comparative_analysis">
+
+                        <h2 style="margin: 0; font-size: 1.55rem; color: #333;">Yearly Distribution for Products</h2>
+
+                        <!-- Yearly Distribution chart -->
+                        <div id="chart3" class="chart"></div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 50px 0px 10px; background-color: transparent;"> 
+                            <h2 id="heading-monthly-2" style="margin: 0; font-size: 1.55rem; color: #333;">Monthly distribution in {{ initial_year }}</h2>
+                            <form method="get" style="display: flex; align-items: center; margin: 0;">
+                                <label for="year" style="margin-right: 10px; font-size: 1rem; color: #555;">Select Year:</label>
+                                <select name="year" id="year-select-2" 
+                                        style="padding: 5px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; background-color: #fff; color: #333; cursor: pointer;"
+                                        onchange=  "const year = this.value;    
+                                                    document.getElementById('heading-monthly-2').textContent = 'Monthly distribution in ' + year;
+                                        ">
+                                    {% for year in years %}
+                                        <option value="{{ year }}" {% if year == initial_year %}selected{% endif %}>
+                                            {{ year }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+
+                        <!-- Monthly Distribution chart -->
+                        <div id="chart4" class="chart"></div>
+                    </div>   
+            </div>
+        </div>
+    </section> 
+
+  <section class="charts">
+      <div class="div-block-5 chart-1-width">
+        <h2>Previous Orders</h2>
+        <div class="stats-container">
+            <div class="tabs-menu-3">
+                <button class="tab-btn2 tab-types w--current" data-tab="tab1">ALL</button>
+                <button class="tab-btn2 tab-types" data-tab="tab2">ON-GRID</button>
+                <button class="tab-btn2 tab-types" data-tab="tab3">OFF-GRID</button>
+                <button class="tab-btn2 tab-types" data-tab="tab4">HYBRID</button>
+            </div>
+            <div class="tabs-content">
+                <div class="w-tab-pane w--tab-active" id="tab1"></div>
+                <div class="w-tab-pane" id="tab2"></div>
+                <div class="w-tab-pane" id="tab3"></div>
+                <div class="w-tab-pane" id="tab4"></div>
+            </div>
+        </div>
+      </div>
+    </section>  
+
+    <!-- Modal for delete confirmation -->
+    <div class="modal" id="deleteModal">
+      <div class="modal-content">
+          <h4>Are you sure you want to delete this row?</h4>
+          <button id="deleteConfirm">Yes, Delete</button>
+          <button id="deleteCancel">Cancel</button>
+      </div>
+    </div>
+
+    <section class="footer">
+        <div class="div-block-65">
+            <div class="text-block-41">This website is build by Udvaboni Pvt. Ltd. &amp; all rights are reserved to them</div>
+        </div>
+    </section>
+
+    {% comment %} {{ redirect_to_login_immediately }} {% endcomment %}
+
+    </body>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const tabButtons1 = document.querySelectorAll('.tab-btn1');
+          const tabContents1 = document.querySelectorAll('.tab-content1');
+    
+          tabButtons1.forEach(button => {
+            button.addEventListener('click', () => {
+              // Remove active class from all buttons and contents
+              tabButtons1.forEach(btn => btn.classList.remove('active'));
+              tabContents1.forEach(content => content.classList.remove('active'));
+    
+              // Add active class to the clicked button and corresponding content
+              button.classList.add('active');
+              const tabId = button.getAttribute('data-tab');
+              document.getElementById(tabId).classList.add('active');
+            });
+          });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        // Prepare sales data from Django template
+        const salesData = {{ sales_data|safe }};
+        const yearlyTotals = {{ yearly_totals|safe }};
+        const years = {{ years|safe }};
+        const products = {{ products|safe }};
+
+        let currentProduct = "{{ initial_product }}";
+        let currentYear = "{{ initial_year }}";
+
+        // Yearly Sales Chart
+        function renderYearlyChart(product) {
+            const yearlyChartOptions = {
+                series: [{
+                    name: 'Yearly Sales',
+                    data: yearlyTotals[product]
+                }],
+                chart: { 
+                    type: 'line', 
+                    height: 350,
+                    dropShadow: {
+                        enabled: true,
+                        color: '#000',
+                        top: 18,
+                        left: 7,
+                        blur: 10,
+                        opacity: 0.5
+                    },
+                    zoom: {
+                        enabled: true
+                    },
+                    toolbar: {
+                        show: true
+                    } 
+                },
+                colors: ['#77B6EA', '#545454'],
+                dataLabels: {
+                    enabled: true,
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                grid: {
+                borderColor: '#e7e7e7',
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.5
+                },
+                },
+                markers: {
+                size: 1
+                },
+                xaxis: { 
+                    categories: years,
+                    title: { text: 'Years' }
+                },
+                yaxis: {
+                    title: {
+                    text: 'Sales'
+                    },
+                }
+            };
+            
+            if (window.yearlyChart) window.yearlyChart.destroy();
+            window.yearlyChart = new ApexCharts(
+                document.getElementById('chart1'), 
+                yearlyChartOptions
+            );
+            window.yearlyChart.render();
+        }
+
+        // Monthly Sales Chart
+        function renderMonthlyChart(product, year) {
+            const monthlyChartOptions = {
+                series: [{
+                    name: 'Monthly Sales',
+                    data: salesData[product][year]
+                }],
+                chart: { 
+                    type: 'bar', 
+                    height: 350 
+                },
+                plotOptions: {
+                    bar: {
+                    borderRadius: 10,
+                    columnWidth: '50%',
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                stroke: {
+                    width: 0
+                },
+                grid: {
+                    row: {
+                        colors: ['#fff', '#f2f2f2']
+                    }
+                },
+                xaxis: { 
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    title: { text: 'Months' }
+                },
+                yaxis: {
+                    title: {
+                    text: 'Sales'
+                    },
+                },
+                fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'light',
+                    type: "horizontal",
+                    shadeIntensity: 0.25,
+                    gradientToColors: undefined,
+                    inverseColors: true,
+                    opacityFrom: 0.85,
+                    opacityTo: 0.85,
+                    stops: [50, 0, 100]
+                },
+                }
+            };
+            
+            if (window.monthlyChart1) window.monthlyChart1.destroy();
+            window.monthlyChart1 = new ApexCharts(
+                document.getElementById('chart2'), 
+                monthlyChartOptions
+            );
+            window.monthlyChart1.render();
+        }    
+
+        // Initial render
+        renderYearlyChart(currentProduct);
+        renderMonthlyChart(currentProduct, currentYear);
+
+        // Product select event
+        document.getElementById('product-select').addEventListener('change', function(e) {
+            currentProduct = e.target.value;
+            renderYearlyChart(currentProduct);
+            renderMonthlyChart(currentProduct, currentYear);
+        });
+
+        // Year select event (only affects chart2)
+        document.getElementById('year-select').addEventListener('change', function(e) {
+            currentYear = e.target.value;
+            renderMonthlyChart(currentProduct, currentYear);
+        });
+
+
+        // Yearly Compitative Analysis Chart
+        var options = {
+            series: [
+            { name: 'On-Grid', data: yearlyTotals['ON - GRID']},
+            { name: 'Off-Grid', data: yearlyTotals['OFF - GRID']},
+            { name: 'Hybrid', data: yearlyTotals['HYBRID']}
+            ],
+            chart: {
+                type: 'bar',
+                height: 350,
+                stacked: true,
+                stackType: '100%'
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    legend: {
+                    position: 'bottom',
+                    offsetX: -10,
+                    offsetY: 0
+                    }
+            }
+            }],
+            xaxis: {
+                categories: years,
+                title: { text: 'Year' }
+            },
+            yaxis: {
+                title: {
+                text: 'Percentage'
+                },
+            },
+            fill: {
+                opacity: 1
+            },
+            legend: {
+                position: 'right',
+                offsetX: 0,
+                offsetY: 50
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '50%', // Adjust column width (50% is narrower than default)
+                }
+            },
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart3"), options);
+            chart.render();
+            
+            
+
+        // Function to render the monthly Compitative Analysis Chart
+        function renderStackedChart(year) {
+            const stackedChartOptions = {
+                series: [
+                { name: 'On-Grid', data: salesData['ON - GRID'][year] },
+                { name: 'Off-Grid', data: salesData['OFF - GRID'][year] },
+                { name: 'Hybrid', data: salesData['HYBRID'][year] }
+                ],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    stacked: true,
+                    stackType: '100%'
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        borderRadius: 10,
+                        columnWidth: '50%',
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                stroke: {
+                    width: 0
+                },
+                grid: {
+                    row: {
+                        colors: ['#fff', '#f2f2f2']
+                    }
+                },
+                xaxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    title: { text: 'Months' }
+                },
+                yaxis: {
+                    title: { text: 'Sales' }
+                },
+                fill: {
+                    opacity: 1
+                },
+                legend: {
+                    position: 'right',
+                    offsetX: 0,
+                    offsetY: 50
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                    }
+                },
+            };
+
+            if (window.monthlyChart2) window.monthlyChart2.destroy();
+            window.monthlyChart2 = new ApexCharts(
+                document.getElementById('chart4'),
+                stackedChartOptions
+            );
+            window.monthlyChart2.render();
+        }
+
+        // Initial chart render for 2023
+        renderStackedChart(currentYear);
+
+        // Update the chart on year selection
+        document.getElementById("year-select-2").addEventListener("change", function () {
+            const selectedYear = this.value;
+            renderStackedChart(selectedYear);
+        });
+    </script> 
+
+
+
+    <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=66e724f388c4c2fb1eeee717" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script>
+      // Tab navigation logic
+      const tabs = document.querySelectorAll('.tab-types');
+      const panes = document.querySelectorAll('.w-tab-pane');
+
+      tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+              tabs.forEach((t) => t.classList.remove('w--current'));
+              panes.forEach((p) => p.classList.remove('w--tab-active'));
+
+              tab.classList.add('w--current');
+              document.querySelector(`#${tab.dataset.tab}`).classList.add('w--tab-active');
+          });
+      });
+
+      const STATUS_OPTIONS = [
+          'In Progress', 
+          'Resolved', 
+          'Closed', 
+          'On Hold',
+          'Pending'
+      ];
+
+        // Initialize as separate variables
+        let allRows = [];
+        let onGridRows = [];
+        let offGridRows = [];
+        let hybridRows = [];
+        let lastTimestamp = null;
+        let isDropdownActive = false; // Track dropdown state
+        let isRowsPerPageActive = false;
+
+        // Configuration
+        const FETCH_INTERVAL = 5000; // 5 seconds
+
+        // Global variables
+        let pollInterval;
+        let allowTableRefresh = true;
+
+        // Place these variables outside createTable, at the top of the script section for table logic
+        let sortColumn = 'description';
+        let sortOrder = 'asc';
+
+        // Place these at the top, outside createTable
+        let currentPage = 1;
+        let rowsPerPage = 10;
+
+        // Main fetch function
+        async function fetchAndUpdateProjects() {
+            try {
+                // Store current filter value for each tab
+                const filterValues = {};
+                document.querySelectorAll('.filter-input').forEach(input => {
+                    const tabId = input.closest('.w-tab-pane')?.id;
+                    if (tabId) filterValues[tabId] = input.value;
+                });
+
+                const response = await fetch('{% url 'get_project_data' %}');
+                const data = await response.json();
+                // Only update if there's new data
+                if (!lastTimestamp || data.timestamp > lastTimestamp) {
+                    lastTimestamp = data.timestamp;
+                    allRows = data.projects;
+                    onGridRows = allRows.filter(p => p.type === 'ON - GRID');
+                    offGridRows = allRows.filter(p => p.type === 'OFF - GRID');
+                    hybridRows = allRows.filter(p => p.type === 'HYBRID');
+                    // Update UI
+                    createTable('tab1', allRows);
+                    createTable('tab2', onGridRows);
+                    createTable('tab3', offGridRows);
+                    createTable('tab4', hybridRows);
+                    // Restore filter values
+                    document.querySelectorAll('.filter-input').forEach(input => {
+                        const tabId = input.closest('.w-tab-pane')?.id;
+                        if (tabId && filterValues[tabId] !== undefined) {
+                            input.value = filterValues[tabId];
+                            input.dispatchEvent(new Event('input'));
+                        }
+                    });
+                    // Re-apply status select colors and event listeners
+                    setupStatusDropdowns();
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+                // Implement your error handling
+            }
+        }
+
+        // Start polling
+        function startPolling() {
+            if (pollInterval) clearInterval(pollInterval);
+            fetchAndUpdateProjects();
+            pollInterval = setInterval(() => {
+                if (!isDropdownActive && allowTableRefresh && currentPage === 1 && !isRowsPerPageActive) {
+                    fetchAndUpdateProjects();
+                }
+            }, FETCH_INTERVAL);
+            return () => clearInterval(pollInterval);
+        }
+
+        // Cleanup function
+        function cleanupPolling() {
+            clearInterval(pollInterval);
+        }
+
+        function updateStatusSelectColor(selectElement) {
+            const status = selectElement.value;
+            const statusStyles = {
+                'In Progress': {
+                    backgroundColor: '#FFF3CD',
+                    color: '#856404'
+                },
+                'Resolved': {
+                    backgroundColor: '#D4EDDA',
+                    color: '#155724'
+                },
+                'Closed': {
+                    backgroundColor: '#D6D8D9',
+                    color: '#383D41'
+                },
+                'On Hold': {
+                    backgroundColor: '#F8D7DA',
+                    color: '#721C24'
+                },
+                'Pending': {
+                    backgroundColor: '#CCE5FF',
+                    color: '#004085'
+                }
+            };
+            
+            // Apply styles to the select element
+            const style = statusStyles[status] || {
+                backgroundColor: '#ffffff',
+                color: '#000000'
+            };
+            
+            selectElement.style.backgroundColor = style.backgroundColor;
+            selectElement.style.color = style.color;
+            
+            // Also update the dropdown options' colors
+            Array.from(selectElement.options).forEach(option => {
+                const optionStyle = statusStyles[option.value] || {
+                    backgroundColor: '#ffffff',
+                    color: '#000000'
+                };
+                option.style.backgroundColor = optionStyle.backgroundColor;
+                option.style.color = optionStyle.color;
+            });
+        }
+
+        // Enhanced status select handler
+        function setupStatusDropdowns() {
+            document.querySelectorAll('.status-select').forEach(select => {
+                // Set initial color
+                updateStatusSelectColor(select);
+
+                select.addEventListener('mousedown', () => {
+                    isDropdownActive = true;
+                });
+                select.addEventListener('change', async function() {
+                    const projectId = this.getAttribute('data-project-id');
+                    const newStatus = this.value;
+                    const originalStatus = this.getAttribute('data-original-status');
+                    // Visual feedback
+                    this.disabled = true;
+                    this.style.opacity = '0.7';
+                    this.style.cursor = 'wait';
+                    try {
+                        // Pause all refreshes
+                        allowTableRefresh = false;
+                        const response = await fetch(`/all_projects/${projectId}/status/`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCookie('csrftoken'),
+                                'X-Requested-With': 'XMLHttpRequest'
+                            },
+                            body: JSON.stringify({ status: newStatus })
+                        });
+                        if (!response.ok) throw new Error("Update failed");
+                        // Update local data
+                        const project = allRows.find(p => p.projectId === projectId);
+                        if (project) project.status = newStatus;
+                        this.setAttribute('data-original-status', newStatus);
+                        showToast('Status updated!');
+                    } catch (error) {
+                        this.value = originalStatus;
+                        showToast('Update failed!', 'error');
+                    } finally {
+                        // Restore UI
+                        this.disabled = false;
+                        this.style.opacity = '';
+                        this.style.cursor = '';
+                        // Resume polling after a short delay
+                        setTimeout(() => {
+                            isDropdownActive = false;
+                            allowTableRefresh = true;
+                            fetchAndUpdateProjects(); // Immediate refresh
+                        }, 500);
+                    }
+                    updateStatusSelectColor(this); // Update color after change
+                });
+                select.addEventListener('blur', () => {
+                    isDropdownActive = false;
+                });
+            });
+        }
+
+        // Initialize everything
+        const cleanup = startPolling();
+        window.addEventListener('beforeunload', cleanup);
+
+        // Function to create table with sorting, filtering, pagination, and delete button
+        function createTable(containerId, rows) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = `
+                <div class="filter-container">
+                    <label for="search-column" style="font-size:1rem;"><bold>Filter by:</bold></label>
+                    <input type="text" placeholder="Search..." class="filter-input" style="font-size:1rem;">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sortable description" data-sort="description">Description <span class="arrow"></span></th>;
+                            <th>Project ID</th>
+                            <th class="sortable" data-sort="date">Date <span class="arrow"></span></th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Download</th> <!-- New Download Column -->
+                            <th>Edit</th> <!-- New Edit Column -->
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="pagination">
+                    <div class="pagination-container">
+                        <button class="first">First</button>
+                        <button class="previous">Previous</button>
+                        <span>Page <input type="number" min="1" class="page-input"> of <span class="total-pages"></span></span>
+                        <button class="next">Next</button>
+                        <button class="last">Last</button>
+                        <select class="rows-per-page">
+                            <option value="5">5 rows</option>
+                            <option value="10" selected>10 rows</option>
+                            <option value="20">20 rows</option>
+                        </select>
+                    </div>
+                </div> 
+                <div class="pagination-info">
+                    <div class ="entries-info"></div>
+                </div>    
+            `;
+
+            const tbody = container.querySelector('tbody');
+            const filterInput = container.querySelector('.filter-input');
+            const rowsPerPageSelect = container.querySelector('.rows-per-page');
+            const pageInput = container.querySelector('.page-input');
+            const totalPagesSpan = container.querySelector('.total-pages');
+            const entriesInfo = container.querySelector('.entries-info');
+            const firstButton = container.querySelector('.first');
+            const previousButton = container.querySelector('.previous');
+            const nextButton = container.querySelector('.next');
+            const lastButton = container.querySelector('.last');
+
+            let filteredRows = rows;
+
+            // Sort rows by column
+            function sortRows() {
+                const arrowElements = container.querySelectorAll('.arrow');
+                arrowElements.forEach(arrow => arrow.textContent = '');
+
+                if (sortColumn === 'description') {
+                    filteredRows.sort((a, b) => {
+                        const aValue = a.description.toLowerCase();
+                        const bValue = b.description.toLowerCase();
+                        return sortOrder === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                    });
+                    container.querySelector('[data-sort="description"] .arrow').textContent = sortOrder === 'asc' ? '▲' : '▼';
+                } else if (sortColumn === 'date') {
+                    filteredRows.sort((a, b) => {
+                        const aValue = new Date(a.date);
+                        const bValue = new Date(b.date);
+                        return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+                    });
+                    container.querySelector('[data-sort="date"] .arrow').textContent = sortOrder === 'asc' ? '▲' : '▼';
+                }
+            }
+
+            // Attach event listeners for sorting
+            const sortableHeaders = container.querySelectorAll('.sortable');
+            sortableHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const column = header.dataset.sort;
+                    if (sortColumn === column) {
+                        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+                    } else {
+                        sortColumn = column;
+                        sortOrder = 'asc';
+                    }
+                    sortRows();
+                    updateTable();
+                });
+            });
+
+            // Pagination and update table
+            function updatePaginationInfo() {
+                const totalEntries = filteredRows.length;
+                const totalPages = Math.ceil(totalEntries / rowsPerPage);
+                if (currentPage > totalPages) currentPage = totalPages || 1;
+                if (currentPage < 1) currentPage = 1;
+                totalPagesSpan.textContent = totalPages;
+                pageInput.value = currentPage;
+                pageInput.setAttribute('min', 1);
+                pageInput.setAttribute('max', totalPages);
+                entriesInfo.textContent = `Showing ${Math.min((currentPage - 1) * rowsPerPage + 1, totalEntries)} to ${Math.min(currentPage * rowsPerPage, totalEntries)} of ${totalEntries} entries`;
+
+                firstButton.disabled = currentPage === 1;
+                previousButton.disabled = currentPage === 1;
+                nextButton.disabled = currentPage === totalPages;
+                lastButton.disabled = currentPage === totalPages;
+            }
+
+            function updateTable() {
+                tbody.innerHTML = '';
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+                if (currentPage > totalPages) currentPage = totalPages || 1;
+                if (currentPage < 1) currentPage = 1;
+                const startIndex = (currentPage - 1) * rowsPerPage;
+                const endIndex = Math.min(startIndex + rowsPerPage, filteredRows.length);
+                const rowsToDisplay = filteredRows.slice(startIndex, endIndex);
+
+                rowsToDisplay.forEach((row, index) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="description">${row.description}</td>
+                        <td>${row.projectId}</td>
+                        <td>${row.date}</td>
+                        <td>${row.type}</td>
+                        <td>
+                            <select class="status-select" 
+                                    data-project-id="${row.projectId}"
+                                    data-original-status="${row.status}">
+                                ${STATUS_OPTIONS.map(status => 
+                                    `<option value="${status}" ${status === row.status ? 'selected' : ''}>${status}</option>`
+                                ).join('')}
+                            </select>
+                        </td>
+                        <td>
+                            <img src="{% static 'images/download_for_offline_35dp_0000F5_FILL0_wght600_GRAD0_opsz40.svg' %}"
+                                loading="lazy"
+                                width="35"
+                                alt="Download"
+                                class="download-btn image-4"
+                                data-id="${row.projectId}"
+                            />
+                            </button>
+                        </td>
+                        <td>
+                            <img src="{% static 'images/edit_note_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg' %}"
+                                loading="lazy" 
+                                width="35" 
+                                alt="Edit" 
+                                class=" image-3"
+                                data-id="${row.projectId}"
+                            />
+                        </td>
+                        <td>
+                            <img src="{% static 'images/delete_35dp_8C1A10_FILL0_wght400_GRAD0_opsz40.svg' %}"
+                                loading="lazy" 
+                                width="35" 
+                                alt="Delete"
+                                class="delete-btn image-3"
+                                data-id="${row.projectId}"                                
+                            />
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                updatePaginationInfo();
+                setTimeout(setupStatusDropdowns, 0);
+            }
+
+            // Pause polling when the filter input is focused or has text
+            filterInput.addEventListener('focus', () => {
+                allowTableRefresh = false;
+            });
+            filterInput.addEventListener('input', () => {
+                if (filterInput.value.trim() !== '') {
+                    allowTableRefresh = false;
+                } else {
+                    allowTableRefresh = true;
+                }
+            });
+            filterInput.addEventListener('blur', () => {
+                // Only resume polling if the input is empty
+                if (filterInput.value.trim() === '') {
+                    allowTableRefresh = true;
+                }
+            });
+
+            // Filter rows based on search input
+            filterInput.addEventListener('input', () => {
+                const query = filterInput.value.toLowerCase();
+                filteredRows = rows.filter(row =>
+                    (row.description && row.description.toLowerCase().includes(query)) ||
+                    (row.projectId && row.projectId.toLowerCase().includes(query)) ||
+                    (row.date && row.date.toLowerCase().includes(query)) ||
+                    (row.status && row.status.toLowerCase().includes(query))
+                );
+                currentPage = 1; // Reset to first page
+                sortRows();
+                updateTable();
+            });
+
+            rowsPerPageSelect.value = rowsPerPage;
+            rowsPerPageSelect.addEventListener('focus', () => {
+                isRowsPerPageActive = true;
+            });
+            rowsPerPageSelect.addEventListener('blur', () => {
+                isRowsPerPageActive = false;
+            });
+            rowsPerPageSelect.addEventListener('change', () => {
+                isRowsPerPageActive = false;
+                rowsPerPage = parseInt(rowsPerPageSelect.value);
+                currentPage = 1; // Reset to first page
+                updateTable();
+            });
+
+            firstButton.addEventListener('click', () => {
+                currentPage = 1;
+                updateTable();
+            });
+
+            previousButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    updateTable();
+                }
+            });
+
+            nextButton.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    updateTable();
+                }
+            });
+
+            lastButton.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+                currentPage = totalPages;
+                updateTable();
+            });
+
+            pageInput.addEventListener('change', () => {
+                let val = parseInt(pageInput.value);
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+                if (!isNaN(val) && val >= 1 && val <= totalPages) {
+                    currentPage = val;
+                    updateTable();
+                } else {
+                    if (val > totalPages) {
+                        currentPage = totalPages;
+                        pageInput.value = totalPages;
+                        updateTable();
+                    } else {
+                        pageInput.value = currentPage;
+                    }
+                }
+            });
+
+            tbody.addEventListener('click', (event) => {
+                if (event.target && event.target.closest('.download-btn')) {
+                    const btn = event.target.closest('.download-btn');
+                    const rowId = btn.getAttribute('data-id');
+                    if (rowId) {
+                        window.location.href = `/forms/invoice/${rowId}/`;
+                    } else {
+                        alert('No project ID found!');
+                    }
+                }
+            }); 
+
+            tbody.addEventListener('click', (event) => {
+                if (event.target && event.target.closest('.edit-btn')) {
+                    const btn = event.target.closest('.edit-btn');
+                    const rowId = btn.getAttribute('data-id');
+                    if (rowId) {
+                        window.location.href = `/forms/step1/${rowId}/`;
+                    } else {
+                        alert('No project ID found!');
+                    }
+                }
+            }); 
+
+            tbody.addEventListener('click', (event) => {
+                if (event.target && event.target.classList.contains('delete-btn')) {
+                    const rowId = event.target.getAttribute('data-id');
+                    showDeleteModal(rowId);
+                }
+            }); 
+
+            function showDeleteModal(rowId) {
+                const modal = document.getElementById('deleteModal');
+                const deleteConfirmButton = document.getElementById('deleteConfirm');
+                const deleteCancelButton = document.getElementById('deleteCancel');
+
+                modal.style.display = 'flex';
+
+                deleteConfirmButton.onclick = async () => {
+                    try {
+                        const response = await fetch(`/projects/${rowId}/delete/`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRFToken': getCookie('csrftoken'),
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            modal.style.display = 'none';
+                            startPolling();  // Just updates the existing table
+                            showToast('Project deleted successfully');
+                        } else {
+                            const result = await response.json();
+                            throw new Error(result.message || 'Failed to delete project');
+                        }
+                    } catch (error) {
+                        console.error('Delete error:', error);
+                        showToast(`Error: ${error.message}`, 'error');
+                        modal.style.display = 'none';
+                    }
+                };
+                
+                deleteCancelButton.onclick = () => {
+                    modal.style.display = 'none';
+                };
+            }
+            sortRows();
+            updateTable();
+            setupStatusDropdowns();
+        }
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Initialize tables for each tab
+        {% comment %} createTable('tab1', allRows);
+        createTable('tab2', onGridRows);
+        createTable('tab3', offGridRows);
+        createTable('tab4', hybridRows);  {% endcomment %}
+  </script>
+
+  <script>
+    const button = document.getElementById('dropdownUserAvatarButton');
+    const dropdownMenu = document.getElementById('dropdownAvatar');
+
+    button.addEventListener('click', () => {
+        dropdownMenu.classList.toggle('active');
+    });
+
+    // Close the dropdown when clicking outside
+    window.addEventListener('click', (event) => {
+        if (!button.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.remove('active');
+        }
+    });
+  </script>
+
+  <script>
+    let inactivityTimer;
+
+    function resetInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(function() {
+            window.location.href = '/logout/?inactive=true';
+        }, 900000); // 15 minutes
+    }
+
+    // Start the timer when page loads
+    window.onload = resetInactivityTimer;
+
+    // Reset timer on user activity
+    document.addEventListener('mousemove', resetInactivityTimer);
+    document.addEventListener('mousedown', resetInactivityTimer);
+    document.addEventListener('keypress', resetInactivityTimer);
+    document.addEventListener('scroll', resetInactivityTimer);
+    document.addEventListener('touchstart', resetInactivityTimer);
+  </script>
+
+</html>    
